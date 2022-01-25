@@ -58,7 +58,7 @@ chrome.storage.local.get(['blueChestObj'], function (result) {
         document.getElementById("cb-chest").innerHTML = result.blueChestObj.cbCount;
         document.getElementById("cb-ffj").innerHTML = result.blueChestObj.cbFfj;
 
-        document.getElementById("hit-array").innerHTML = (result.blueChestObj.historyHitArray || []).length > 0 ? getHitStr(result.blueChestObj.historyHitArray) : '无';
+        document.getElementById("hit-array").innerHTML = (result.blueChestObj.historyHitArray || []).length > 0 ? getHistoryHitStr(result.blueChestObj.historyHitArray) : '无';
     }
 });
 
@@ -121,7 +121,7 @@ function resetCbCounter() {
     });
 }
 
-function getHitStr(array) {
+function getHistoryHitStr(array) {
     let str = '';
     array.map((e, i) => {
         str += (e.k + ' ' + e.v)
