@@ -1,19 +1,88 @@
 <!doctype html>
-<meta charset="utf-8"/>
+<meta charset="utf-8" />
 <style type="text/css">
 	#mainPopup {
 		padding: 10px;
-		height: 200px;
+		height: 250px;
 		width: 400px;
+		box-sizing: border-box;
 		font-family: Helvetica, Ubuntu, Arial, sans-serif;
+	}
+
+	.css-header {
+		display: flex;
+		flex-direction: row;
+		align-items: center;
+		justify-content: space-between;
+	}
+
+	.css-item {
+		display: flex;
+		flex: 1;
+		flex-direction: row;
+		align-items: center;
+		justify-content: flex-start;
+	}
+
+	.css-keys {
+		font-weight: bold;
+		font-size: 18px;
+		color: #333;
+	}
+
+	.css-normal-value {
+		margin-left: 20px;
+		font-size: 16px;
+		color: #333;
+	}
+
+	.css-valuables {
+		margin-left: 20px;
+		font-size: 18px;
+		color: #697CD9;
+	}
+
+	.css-drop-icon {
+		width: 49px;
+		height: 49px;
 	}
 </style>
 
 <div id="mainPopup">
-	<p><strong>青箱</strong></p>
-	<p id="blue-chest"></p>
+	<div class="css-header">
+		<div class="css-item">
+			<p class="css-keys">青箱:</p>
+			<p class="css-valuables" id="blue-chest"></p>
+		</div>
+		<div class="css-item">
+			<img class="css-drop-icon" src="../../icons/icon_20004.jpeg">
+			<p class="css-valuables" id="ffj"></p>
+		</div>
+	</div>
+	<div class="css-header">
+		<div class="css-item">
+			<img class="css-drop-icon" src="../../icons/icon_1.jpeg">
+			<p class="css-normal-value" id="white-ring"></p>
+		</div>
+		<div class="css-item">
+			<img class="css-drop-icon" src="../../icons/icon_2.jpeg">
+			<p class="css-normal-value" id="blue-ring"></p>
+		</div>
+		<div class="css-item">
+			<img class="css-drop-icon" src="../../icons/icon_3.jpeg">
+			<p class="css-valuables" id="red-ring"></p>
+		</div>
+	</div>
+	<div class="css-item">
+		<p class="css-keys">距离上次出金，打了多少蓝:</p>
+		<p class="css-valuables" id="un-hit"></p>
+	</div>
+	<div class="css-item">
+		<p class="css-keys">历史出金所需蓝箱数:</p>
+		<p class="css-normal-value" id="hit-array"></p>
+	</div>
 </div>
 
-<button id="resetCounter">重置</button>
+<button id="resetCounter">重置蓝箱</button>
 
 <script src="browser_action.js"></script>
