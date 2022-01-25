@@ -67,7 +67,7 @@ function getBlueChestObj(data) {
 		obj.whiteRingCount += 1
 	} else if (document.querySelector("[data-key='73_2']")) {
 		obj.blueRingCount += 1
-	} else if (document.querySelector("[data-key='73_2']")) {
+	} else if (document.querySelector("[data-key='73_3']")) {
 		obj.redRingCount += 1
 	}
 	return obj;
