@@ -1,3 +1,3 @@
 # gbf-BlueChestCounter
 
-![Alt text](https://imgur.com/a/QlUIYML)
+![a](https://i.imgur.com/KfJhy6R.png)
