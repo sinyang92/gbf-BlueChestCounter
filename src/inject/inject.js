@@ -123,6 +123,9 @@ function getUbBlueChestObj(data, scene) {
 		obj.blueRingCount += 1
 	} else if (document.querySelector("[data-key='73_3']")) {
 		obj.redRingCount += 1
+	} else {
+		obj.count -= 1
+		obj.unHitCount -= 1
 	}
 	return obj;
 }
