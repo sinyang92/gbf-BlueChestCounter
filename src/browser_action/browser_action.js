@@ -67,14 +67,14 @@ document.addEventListener('DOMContentLoaded', function () {
     var obutton = document.getElementById("resetCounter").getElementsByTagName("button");
     for (var i = obutton.length - 1; i >= 0; i--) {
         obutton[i].onclick = i == 0
-            ? () => resetCounter()
+            ? () => resetPbCounter()
             : i == 1
                 ? () => resetAkxCounter()
                 : () => resetCbCounter()
     }
 });
 
-function resetCounter() {
+function resetPbCounter() {
     document.getElementById("blue-chest").innerHTML = 0;
     chrome.storage.local.get(['blueChestObj'], function (result) {
         let resetObj;

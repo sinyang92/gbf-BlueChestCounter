@@ -2,9 +2,9 @@ const regex = new RegExp("http:\/\/game\.granbluefantasy\.jp\/#result_multi\/(?!
 const BLUE_CHEST_CLASS_NAME = "ico-treasure-11-mini";
 const anima_id_list = ["10_41", "10_42", "10_43", "10_44", "10_45", "10_46"];
 const UB_NICKNAME = '大巴'
-const AKX_ID = ["10_534"];
+const AKX_DROP_ITEM_ID = ["10_534"];
 const AKX_NICKNAME = 'akx'
-const CB_ID = ['10_138']
+const CB_DROP_ITEM_ID = ['10_138']
 const CB_NICKNAME = '超巴'
 const EMPTY_OBJ = {
 	//大巴
@@ -34,7 +34,7 @@ var check;
 $(window).bind('hashchange', function () {
 	if (window.location.href.match(regex)) {
 		check = setInterval(function () {
-			if (isMonster(AKX_ID, AKX_NICKNAME)) {
+			if (isQuest(AKX_DROP_ITEM_ID, AKX_NICKNAME)) {
 				if (document.getElementsByClassName(BLUE_CHEST_CLASS_NAME).length > 0) {
 					chrome.storage.local.get(['blueChestObj'], function (result) {
 						if (!result.blueChestObj) {
@@ -49,7 +49,7 @@ $(window).bind('hashchange', function () {
 						}
 					});
 				}
-			} else if (isMonster(CB_ID, CB_NICKNAME)) {
+			} else if (isQuest(CB_DROP_ITEM_ID, CB_NICKNAME)) {
 				chrome.storage.local.get(['blueChestObj'], function (result) {
 					if (!result.blueChestObj) {
 						chrome.storage.local.set({ 'blueChestObj': getBlueChestObj(undefined, CB_NICKNAME) }, function () {
@@ -62,7 +62,7 @@ $(window).bind('hashchange', function () {
 						})
 					}
 				});
-			} else if (isMonster(anima_id_list, UB_NICKNAME)) {
+			} else if (isQuest(anima_id_list, UB_NICKNAME)) {
 				if (document.getElementsByClassName(BLUE_CHEST_CLASS_NAME).length > 0) {
 					chrome.storage.local.get(['blueChestObj'], function (result) {
 						if (!result.blueChestObj) {
@@ -85,23 +85,23 @@ $(window).bind('hashchange', function () {
 	}
 });
 
-function isMonster(idList, nickName) {
-	var retVal = false
+function isQuest(idList, nickName) {
+	var isTargetQuest = false
 	for (i = 0; i < idList.length; i++) {
 		if (document.querySelector("[data-key='" + idList[i] + "']") != undefined) {
 			console.log("侦测到" + nickName + "结算页");
 			clearInterval(check);
-			retVal = true;
+			isTargetQuest = true;
 			break;
 		}
 	}
-	return retVal;
+	return isTargetQuest;
 }
 
 function getBlueChestObj(data, scene) {
 	switch (scene) {
 		case UB_NICKNAME:
-			return getUbBlueChestObj(data, scene)
+			return getPbBlueChestObj(data, scene)
 		case AKX_NICKNAME:
 			return getAkxBlueChestObj(data, scene)
 		case CB_NICKNAME:
@@ -109,7 +109,7 @@ function getBlueChestObj(data, scene) {
 	}
 }
 
-function getUbBlueChestObj(data, scene) {
+function getPbBlueChestObj(data, scene) {
 	let obj = data || EMPTY_OBJ
 	obj.count += 1
 	obj.unHitCount += 1
@@ -124,6 +124,9 @@ function getUbBlueChestObj(data, scene) {
 	} else if (document.querySelector("[data-key='73_3']")) {
 		obj.redRingCount += 1
 	} else {
+		// Some quests may have anima dropped but invalid blue chest content.
+		// In such cases do NOT count.
+		// e.g. メタトロン
 		obj.count -= 1
 		obj.unHitCount -= 1
 	}
