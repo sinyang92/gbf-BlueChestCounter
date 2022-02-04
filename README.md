@@ -1,3 +1,3 @@
-# gbf-BlueChestCounter
+# 效果
 
-![a](https://i.imgur.com/KfJhy6R.png)
+![a](https://i.imgur.com/CqjstCI.png)
