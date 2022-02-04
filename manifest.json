@@ -1,6 +1,6 @@
 {
   "name": "gbf-BlueChestCounter",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "manifest_version": 2,
   "description": "GBF青箱统计",
   "icons": {
@@ -11,10 +11,6 @@
     "storage"
   ],
   "default_locale": "en",
-  "background": {
-    "page": "src/bg/background.html",
-    "persistent": true
-  },
   "browser_action": {
     "default_icon": "icons/icon48.png",
     "default_title": "蓝箱统计",
