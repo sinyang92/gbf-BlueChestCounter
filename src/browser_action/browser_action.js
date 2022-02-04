@@ -79,15 +79,20 @@ function resetPbCounter() {
     chrome.storage.local.get(['blueChestObj'], function (result) {
         let resetObj;
         if (!result.blueChestObj) {
-            resetObj = EMPTY_OBJ
+            resetObj = EMPTY_OBJ;
         } else {
-            resetObj = result.blueChestObj
-            resetObj.count = 0
+            resetObj = result.blueChestObj;
+            resetObj.count = 0;
+            resetObj.whiteRingCount = 0;
+            resetObj.blueRingCount = 0;
+            resetObj.redRingCount = 0;
+            resetObj.unHitCount = 0;
         }
+
         chrome.storage.local.set({ 'blueChestObj': resetObj }, function () {
             console.log('大巴蓝箱记录已重置' + JSON.stringify(resetObj));
-        });
-    });
+        })
+    })
 }
 
 function resetAkxCounter() {
@@ -95,25 +100,33 @@ function resetAkxCounter() {
     chrome.storage.local.get(['blueChestObj'], function (result) {
         let resetObj;
         if (!result.blueChestObj) {
-            resetObj = EMPTY_OBJ
+            resetObj = EMPTY_OBJ;
         } else {
-            resetObj = result.blueChestObj
-            resetObj.akxCount = 0
+            resetObj = result.blueChestObj;
+            resetObj.akxCount = 0;
+            resetObj.akxFfj = 0;
+            resetObj.akxWhiteRingCount = 0;
+            resetObj.akxBlueRingCount = 0;
+            resetObj.akxRedRingCount = 0;
+            resetObj.akxUnHitCount = 0;
         }
+
         chrome.storage.local.set({ 'blueChestObj': resetObj }, function () {
             console.log('akx蓝箱记录已重置' + JSON.stringify(resetObj));
         });
     });
 }
+
 function resetCbCounter() {
     document.getElementById("cb-chest").innerHTML = 0;
     chrome.storage.local.get(['blueChestObj'], function (result) {
         let resetObj;
         if (!result.blueChestObj) {
-            resetObj = EMPTY_OBJ
+            resetObj = EMPTY_OBJ;
         } else {
-            resetObj = result.blueChestObj
-            resetObj.cbCount = 0
+            resetObj = result.blueChestObj;
+            resetObj.cbCount = 0;
+            resetObj.cbFfj = 0;
         }
         chrome.storage.local.set({ 'blueChestObj': resetObj }, function () {
             console.log('cb记录已重置' + JSON.stringify(resetObj));
