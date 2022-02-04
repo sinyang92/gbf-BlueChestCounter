@@ -10,7 +10,6 @@
   "permissions": [
     "storage"
   ],
-  "default_locale": "en",
   "browser_action": {
     "default_icon": "icons/icon48.png",
     "default_title": "蓝箱统计",
