@@ -91,7 +91,7 @@ $(window).bind('hashchange', function () {
 						}
 					});
 				}
-			} else if (isQuest(anima_id_list, UB_NICKNAME)) {
+			} else if (isQuest(UB_DROP_ITEM_ID, UB_NICKNAME)) {
 				if (document.getElementsByClassName(BLUE_CHEST_CLASS_NAME).length > 0) {
 					chrome.storage.sync.get("blueChestObj", function (result) {
 						if (!result.blueChestObj) {
@@ -105,7 +105,20 @@ $(window).bind('hashchange', function () {
 							});
 						}
 					});
-				}
+				} else {
+					chrome.storage.sync.get("blueChestObj", function (result) {
+						if (!result.blueChestObj) {
+							chrome.storage.sync.set({ "blueChestObj": notGetPbBlueChest(undefined) }, function () {
+								console.log('大巴蓝箱、戒指设置初始化');
+							});
+						} else {
+							let obj = notGetPbBlueChest(result.blueChestObj)
+							chrome.storage.sync.set({ "blueChestObj": obj }, function () {
+								console.log('大巴蓝箱落空设置为： ' + (obj.noBlueChestCount));
+							});
+						}
+					});
+				};
 			}
 		}, 500);
 
@@ -207,6 +220,22 @@ function getGrandeChestObj(data, scene) {
 		obj.grandeBlueRingCount += 1;
 	} else if (document.querySelector("[data-key='73_3']")) {
 		obj.grandeRedRingCount += 1;
+	}
+	return obj;
+}
+
+function notGetPbBlueChest(data) {
+	let obj = data || EMPTY_OBJ
+	if (document.querySelector("[data-key='10_79']")) {
+		obj.noBlueChestCount += 1
+	} else if (document.querySelector("[data-key='10_59']")) {
+		for (i = 0; i < RUSTED_WEAPONS.length; i++) {
+			if (document.querySelector("[data-key='" + RUSTED_WEAPONS[i] + "']") != undefined) {
+				console.log("侦测到小巴结算页");
+				return obj;
+			}
+		}
+		obj.noBlueChestCount += 1
 	}
 	return obj;
 }
