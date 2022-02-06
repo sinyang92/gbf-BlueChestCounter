@@ -1,6 +1,8 @@
 const regex = new RegExp("http:\/\/((game\.granbluefantasy)|(gbf\.game\.mbga))\.jp\/#result_multi\/(?!detail)[0-9]*");
 const BLUE_CHEST_CLASS_NAME = "ico-treasure-11-mini";
 const anima_id_list = ["10_41", "10_42", "10_43", "10_44", "10_45", "10_46"];
+const RUSTED_WEAPONS = ["1_1030002900", "1_1030102500", "1_1030202400",	"1_1030302000",	"1_1030402200",	"1_1030502500",	"1_1030601400",	"1_1030702300",	"1_1030801200",	"1_1030900600"]
+const UB_DROP_ITEM_ID = ["10_59", "10_79"];
 const UB_NICKNAME = '大巴'
 const AKX_DROP_ITEM_ID = ["10_534"];
 const AKX_NICKNAME = 'akx'
@@ -88,7 +90,7 @@ $(window).bind('hashchange', function () {
 						}
 					});
 				}
-			} else if (isQuest(anima_id_list, UB_NICKNAME)) {
+			} else if (isQuest(UB_DROP_ITEM_ID, UB_NICKNAME)) {
 				if (document.getElementsByClassName(BLUE_CHEST_CLASS_NAME).length > 0) {
 					chrome.storage.sync.get("blueChestObj", function (result) {
 						if (!result.blueChestObj) {
