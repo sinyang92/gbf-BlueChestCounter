@@ -6,7 +6,6 @@ const EMPTY_OBJ = {
     blueRingCount: 0,
     redRingCount: 0,
     unHitCount: 0,
-    noBlueChestCount: 0,
     //akx
     akxCount: 0,//akx蓝数
     akxFfj: 0,
@@ -135,7 +134,6 @@ function refreshStats() {
     chrome.storage.sync.get("blueChestObj", function (result) {
         if (!result.blueChestObj) {
             document.getElementById("blue-chest").innerHTML = 0;
-            document.getElementById("no-blue-chest").innerHTML = 0;
             document.getElementById("white-ring").innerHTML = 0;
             document.getElementById("blue-ring").innerHTML = 0;
             document.getElementById("red-ring").innerHTML = 0;
@@ -162,7 +160,6 @@ function refreshStats() {
             document.getElementById("hit-array").innerHTML = '无';
         } else {
             document.getElementById("blue-chest").innerHTML = result.blueChestObj.count;
-            document.getElementById("no-blue-chest").innerHTML = result.blueChestObj.noBlueChestCount;
             document.getElementById("white-ring").innerHTML = result.blueChestObj.whiteRingCount;
             document.getElementById("blue-ring").innerHTML = result.blueChestObj.blueRingCount;
             document.getElementById("red-ring").innerHTML = result.blueChestObj.redRingCount;
