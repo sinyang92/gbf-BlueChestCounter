@@ -24,10 +24,14 @@
 		justify-content: flex-start;
 	}
 
-	.css-keys {
+	.css-keys, .css-keys-nomargin {
 		font-weight: bold;
 		font-size: 18px;
 		color: #333;
+	}
+
+	.css-keys-nomargin {
+		margin: 0px;
 	}
 
 	.css-normal-value {
@@ -37,6 +41,8 @@
 	}
 
 	.css-valuables {
+		margin-top: 0px;
+		margin-bottom: 0px;
 		margin-left: 20px;
 		font-size: 18px;
 		color: #697CD9;
@@ -71,6 +77,11 @@
 		font-size: 18px;
 		color: red;
 	}
+
+	.css-container {
+		margin-top: 18px;
+		margin-bottom: 18px;
+	}
 </style>
 
 <div id="mainPopup">
@@ -79,6 +90,10 @@
 		<div class="css-item">
 			<p class="css-keys">大巴青箱:</p>
 			<p class="css-valuables" id="blue-chest"></p>
+		</div>
+		<div class="css-item">
+			<p class="css-keys">落空:</p>
+			<p class="css-valuables" id="no-blue-chest"></p>
 		</div>
 		<div class="css-item">
 			<img class="css-drop-icon" src="../../icons/icon_20004.jpeg">
@@ -99,9 +114,15 @@
 			<p class="css-valuables" id="red-ring"></p>
 		</div>
 	</div>
-	<div class="css-item">
-		<p class="css-keys">距离上次出金，打了多少蓝:</p>
-		<p class="css-valuables" id="un-hit"></p>
+	<div class="css-container">
+		<div class="css-item">
+			<p class="css-keys-nomargin">蓝箱率:</p>
+			<p class="css-valuables" id="bluechest-rate"></p>
+		</div>
+		<div class="css-item">
+			<p class="css-keys-nomargin">距离上次出金，打了多少蓝:</p>
+			<p class="css-valuables" id="un-hit"></p>
+		</div>
 	</div>
 	<div class="css-divivd"></div>
 	<!-- akx -->
@@ -110,6 +131,7 @@
 			<p class="css-keys">akx青箱:</p>
 			<p class="css-valuables" id="akx-blue-chest"></p>
 		</div>
+		<div class="css-item"></div>
 		<div class="css-item">
 			<img class="css-drop-icon" src="../../icons/icon_20004.jpeg">
 			<p class="css-valuables" id="akx-ffj"></p>
@@ -140,6 +162,7 @@
 			<p class="css-keys">大公青箱:</p>
 			<p class="css-valuables" id="grande-blue-chest"></p>
 		</div>
+		<div class="css-item"></div>
 		<div class="css-item">
 			<img class="css-drop-icon" src="../../icons/icon_20004.jpeg">
 			<p class="css-valuables" id="grande-ffj"></p>
