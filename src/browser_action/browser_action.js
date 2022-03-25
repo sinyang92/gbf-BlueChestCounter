@@ -52,6 +52,7 @@ function resetPbCounter() {
             resetObj.blueRingCount = 0;
             resetObj.redRingCount = 0;
             resetObj.unHitCount = 0;
+            resetObj.noBlueChestCount = 0;
         }
 
         chrome.storage.sync.set({ "blueChestObj": resetObj }, function () {
