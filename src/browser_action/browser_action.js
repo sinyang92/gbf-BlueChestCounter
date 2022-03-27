@@ -6,6 +6,7 @@ const EMPTY_OBJ = {
     blueRingCount: 0,
     redRingCount: 0,
     unHitCount: 0,
+    noBlueChestCount: 0,
     //akx
     akxCount: 0,//akx蓝数
     akxFfj: 0,
@@ -52,6 +53,7 @@ function resetPbCounter() {
             resetObj.blueRingCount = 0;
             resetObj.redRingCount = 0;
             resetObj.unHitCount = 0;
+            resetObj.noBlueChestCount = 0;
         }
 
         chrome.storage.sync.set({ "blueChestObj": resetObj }, function () {
@@ -135,19 +137,21 @@ function refreshStats() {
     chrome.storage.sync.get("blueChestObj", function (result) {
         if (!result.blueChestObj) {
             document.getElementById("blue-chest").innerHTML = 0;
+            document.getElementById("no-blue-chest").innerHTML = 0;
             document.getElementById("white-ring").innerHTML = 0;
             document.getElementById("blue-ring").innerHTML = 0;
             document.getElementById("red-ring").innerHTML = 0;
             document.getElementById("ffj").innerHTML = 0;
             document.getElementById("un-hit").innerHTML = 0;
-    
+            document.getElementById("bluechest-rate").innerHTML = 0;
+
             document.getElementById("akx-blue-chest").innerHTML = 0;
             document.getElementById("akx-white-ring").innerHTML = 0;
             document.getElementById("akx-blue-ring").innerHTML = 0;
             document.getElementById("akx-red-ring").innerHTML = 0;
             document.getElementById("akx-ffj").innerHTML = 0;
             document.getElementById("akx-un-hit").innerHTML = 0;
-    
+
             document.getElementById("cb-chest").innerHTML = 0;
             document.getElementById("cb-ffj").innerHTML = 0;
 
@@ -157,23 +161,26 @@ function refreshStats() {
             document.getElementById("grande-red-ring").innerHTML = 0;
             document.getElementById("grande-ffj").innerHTML = 0;
             document.getElementById("grande-un-hit").innerHTML = 0;
-    
+
             document.getElementById("hit-array").innerHTML = '无';
         } else {
             document.getElementById("blue-chest").innerHTML = result.blueChestObj.count;
+            document.getElementById("no-blue-chest").innerHTML = result.blueChestObj.noBlueChestCount;
             document.getElementById("white-ring").innerHTML = result.blueChestObj.whiteRingCount;
             document.getElementById("blue-ring").innerHTML = result.blueChestObj.blueRingCount;
             document.getElementById("red-ring").innerHTML = result.blueChestObj.redRingCount;
             document.getElementById("ffj").innerHTML = result.blueChestObj.ffjCount;
             document.getElementById("un-hit").innerHTML = result.blueChestObj.unHitCount;
-    
+            let bluechestRate = 100 * result.blueChestObj.count/(result.blueChestObj.count + result.blueChestObj.noBlueChestCount);
+            document.getElementById("bluechest-rate").innerHTML = parseFloat(bluechestRate).toFixed(1)+"%";
+
             document.getElementById("akx-blue-chest").innerHTML = result.blueChestObj.akxCount;
             document.getElementById("akx-white-ring").innerHTML = result.blueChestObj.akxWhiteRingCount;
             document.getElementById("akx-blue-ring").innerHTML = result.blueChestObj.akxBlueRingCount;
             document.getElementById("akx-red-ring").innerHTML = result.blueChestObj.akxRedRingCount;
             document.getElementById("akx-ffj").innerHTML = result.blueChestObj.akxFfj;
             document.getElementById("akx-un-hit").innerHTML = result.blueChestObj.akxUnHitCount;
-    
+
             document.getElementById("cb-chest").innerHTML = result.blueChestObj.cbCount;
             document.getElementById("cb-ffj").innerHTML = result.blueChestObj.cbFfj;
 
@@ -183,7 +190,7 @@ function refreshStats() {
             document.getElementById("grande-red-ring").innerHTML = result.blueChestObj.grandeRedRingCount;
             document.getElementById("grande-ffj").innerHTML = result.blueChestObj.grandeFfjCount;
             document.getElementById("grande-un-hit").innerHTML = result.blueChestObj.grandeUnHitCount;
-    
+
             document.getElementById("hit-array").innerHTML = (result.blueChestObj.historyHitArray || []).length > 0 ? getHistoryHitStr(result.blueChestObj.historyHitArray) : '无';
         }
     });

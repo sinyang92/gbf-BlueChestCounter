@@ -1,5 +1,7 @@
 const regex = new RegExp("http:\/\/((game\.granbluefantasy)|(gbf\.game\.mbga))\.jp\/#result_multi\/(?!detail)[0-9]*");
 const BLUE_CHEST_CLASS_NAME = "ico-treasure-11-mini";
+const anima_id_list = ["10_41", "10_42", "10_43", "10_44", "10_45", "10_46"];
+const RUSTED_WEAPONS = ["1_1030002900", "1_1030102500", "1_1030202400",	"1_1030302000",	"1_1030402200",	"1_1030502500",	"1_1030601400",	"1_1030702300",	"1_1030801200",	"1_1030900600"]
 const UB_DROP_ITEM_ID = ["10_59", "10_79"];
 const UB_NICKNAME = '大巴'
 const AKX_DROP_ITEM_ID = ["10_534"];
@@ -17,6 +19,7 @@ const EMPTY_OBJ = {
 	blueRingCount: 0,
 	redRingCount: 0,
 	unHitCount: 0,
+	noBlueChestCount: 0,
 
 	//akx
 	akxCount: 0,//akx蓝数
@@ -102,7 +105,20 @@ $(window).bind('hashchange', function () {
 							});
 						}
 					});
-				}
+				} else {
+					chrome.storage.sync.get("blueChestObj", function (result) {
+						if (!result.blueChestObj) {
+							chrome.storage.sync.set({ "blueChestObj": notGetPbBlueChest(undefined) }, function () {
+								console.log('大巴蓝箱、戒指设置初始化');
+							});
+						} else {
+							let obj = notGetPbBlueChest(result.blueChestObj)
+							chrome.storage.sync.set({ "blueChestObj": obj }, function () {
+								console.log('大巴蓝箱落空设置为： ' + (obj.noBlueChestCount));
+							});
+						}
+					});
+				};
 			}
 		}, 500);
 
@@ -204,6 +220,22 @@ function getGrandeChestObj(data, scene) {
 		obj.grandeBlueRingCount += 1;
 	} else if (document.querySelector("[data-key='73_3']")) {
 		obj.grandeRedRingCount += 1;
+	}
+	return obj;
+}
+
+function notGetPbBlueChest(data) {
+	let obj = data || EMPTY_OBJ
+	if (document.querySelector("[data-key='10_79']")) {
+		obj.noBlueChestCount += 1
+	} else if (document.querySelector("[data-key='10_59']")) {
+		for (i = 0; i < RUSTED_WEAPONS.length; i++) {
+			if (document.querySelector("[data-key='" + RUSTED_WEAPONS[i] + "']") != undefined) {
+				console.log("侦测到小巴结算页");
+				return obj;
+			}
+		}
+		obj.noBlueChestCount += 1
 	}
 	return obj;
 }
