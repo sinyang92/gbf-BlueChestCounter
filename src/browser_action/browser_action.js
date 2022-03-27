@@ -48,6 +48,7 @@ function resetPbCounter() {
         } else {
             resetObj = result.blueChestObj;
             resetObj.count = 0;
+            resetObj.ffjCount = 0;
             resetObj.whiteRingCount = 0;
             resetObj.blueRingCount = 0;
             resetObj.redRingCount = 0;
