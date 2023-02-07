@@ -1,4 +1,5 @@
 const regex = new RegExp("https?:\/\/((game\.granbluefantasy)|(gbf\.game\.mbga))\.jp\/#result_multi\/(?!detail)[0-9]*");
+const regex_assist = new RegExp("https?:\/\/((game\.granbluefantasy)|(gbf\.game\.mbga))\.jp\/#quest\/assist")
 const BLUE_CHEST_CLASS_NAME = "ico-treasure-11-mini";
 const anima_id_list = ["10_41", "10_42", "10_43", "10_44", "10_45", "10_46"];
 const RUSTED_WEAPONS = ["1_1030002900", "1_1030102500", "1_1030202400",	"1_1030302000",	"1_1030402200",	"1_1030502500",	"1_1030601400",	"1_1030702300",	"1_1030801200",	"1_1030900600"]
@@ -43,6 +44,7 @@ const EMPTY_OBJ = {
 
 	historyHitArray: []
 };
+
 var check;
 
 $(window).bind('hashchange', function () {
@@ -122,9 +124,17 @@ $(window).bind('hashchange', function () {
 			}
 		}, 500);
 
+	} else if (window.location.href.match(regex_assist)) {
+		registerFocusListener();
+
 	} else {
 		clearInterval(check);
 	}
+});
+
+// handle page reload scenario
+$(window).bind("load",function() {
+	registerFocusListener();
 });
 
 function isQuest(idList, nickName) {
@@ -238,4 +248,29 @@ function notGetPbBlueChest(data) {
 		obj.noBlueChestCount += 1
 	}
 	return obj;
+}
+
+async function pasteBattleId() {
+	const text = await navigator.clipboard.readText();
+	this.value = text;
+	console.log("粘贴成功");
+}
+
+function registerFocusListener() {
+	chrome.storage.sync.get("pasteEnabled", function (result) {
+		if (result.pasteEnabled == true) {
+			var check_assit;
+
+			check_assit = setInterval(function() {
+				var input = document.querySelector("input.frm-battle-key");
+		
+				if (input) {
+					input.addEventListener("focus", pasteBattleId);
+					console.log("焦点事件已注册");
+					clearInterval(check_assit);
+				}
+			}, 1000);
+
+		}
+	});
 }

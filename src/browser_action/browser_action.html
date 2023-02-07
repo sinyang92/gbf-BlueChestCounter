@@ -24,7 +24,8 @@
 		justify-content: flex-start;
 	}
 
-	.css-keys, .css-keys-nomargin {
+	.css-keys,
+	.css-keys-nomargin {
 		font-weight: bold;
 		font-size: 18px;
 		color: #333;
@@ -72,15 +73,94 @@
 	}
 
 	.css-btn {
-		margin-left: 10px;
-		margin-right: 10px;
-		font-size: 18px;
-		color: red;
+		background-color: #FFFFFF;
+		border: 1px solid #222222;
+		border-radius: 8px;
+		box-sizing: border-box;
+		color: #222222;
+		cursor: pointer;
+		display: inline-block;
+		font-family: Circular, -apple-system, BlinkMacSystemFont, Roboto, "Helvetica Neue", sans-serif;
+		font-size: 16px;
+		font-weight: 600;
+		line-height: 20px;
+		margin: 5px;
+		outline: none;
+		padding: 13px 23px;
+		position: relative;
+		text-align: center;
+		text-decoration: none;
+		touch-action: manipulation;
+		transition: box-shadow .2s, -ms-transform .1s, -webkit-transform .1s, transform .1s;
+		user-select: none;
+		-webkit-user-select: none;
+		width: auto;
+	}
+
+	.css-btn:focus-visible {
+		box-shadow: #222222 0 0 0 2px, rgba(255, 255, 255, 0.8) 0 0 0 4px;
+		transition: box-shadow .2s;
+	}
+
+	.css-btn:active {
+		background-color: #F7F7F7;
+		border-color: #000000;
+		transform: scale(.96);
+	}
+
+	.css-btn:disabled {
+		border-color: #DDDDDD;
+		color: #DDDDDD;
+		cursor: not-allowed;
+		opacity: 1;
 	}
 
 	.css-container {
 		margin-top: 18px;
 		margin-bottom: 18px;
+	}
+
+	.css-switch {
+		width: 57px;
+		height: 28px;
+		position: relative;
+		border: 1px solid #dfdfdf;
+		background-color: #DCDFE6;
+		box-shadow: #dfdfdf 0 0 0 0 inset;
+		border-radius: 20px;
+		background-clip: content-box;
+		display: inline-block;
+		appearance: none;
+		-webkit-appearance: none;
+		-moz-appearance: none;
+		user-select: none;
+		outline: none;
+		vertical-align: middle;
+		margin-bottom: 10px;
+	}
+
+	.css-switch::before {
+		content: '';
+		position: absolute;
+		width: 22px;
+		height: 22px;
+		background-color: #FFFFFF;
+		border-radius: 50%;
+		left: 2px;
+		top: 0;
+		bottom: 0;
+		margin: auto;
+		transition: .3s;
+	}
+
+	.css-switch:checked {
+		background-color: #409EFF;
+		transition: .6s;
+	}
+
+	.css-switch:checked::before {
+		left: 30px;
+		transition: .3s;
 	}
 </style>
 
@@ -88,7 +168,7 @@
 	<!-- 大巴 -->
 	<div class="css-header">
 		<div class="css-item">
-			<p class="css-keys">大巴青箱:</p>
+			<p class="css-keys">大巴蓝箱:</p>
 			<p class="css-valuables" id="blue-chest"></p>
 		</div>
 		<div class="css-item">
@@ -128,7 +208,7 @@
 	<!-- akx -->
 	<div class="css-header">
 		<div class="css-item">
-			<p class="css-keys">akx青箱:</p>
+			<p class="css-keys">akx蓝箱:</p>
 			<p class="css-valuables" id="akx-blue-chest"></p>
 		</div>
 		<div class="css-item"></div>
@@ -159,7 +239,7 @@
 	<!-- 大公 -->
 	<div class="css-header">
 		<div class="css-item">
-			<p class="css-keys">大公青箱:</p>
+			<p class="css-keys">大公蓝箱:</p>
 			<p class="css-valuables" id="grande-blue-chest"></p>
 		</div>
 		<div class="css-item"></div>
@@ -188,7 +268,7 @@
 	</div>
 	<div class="css-divivd"></div>
 	<!-- cb -->
-	<div class="css-header"  style="display: none;">
+	<div class="css-header" style="display: none;">
 		<div class="css-item">
 			<p class="css-keys">超巴:</p>
 			<p class="css-valuables" id="cb-chest"></p>
@@ -210,8 +290,13 @@
 		<button class="css-btn" style="display: none;">重置cb</button>
 		<button class="css-btn">重置大公蓝箱</button>
 	</div>
+
+	<div class="css-divivd"></div>
+
+	<div>
+		<input id="pasteSwitch" type="checkbox" class="css-switch" onclick="setPasteSwitch()" unchecked />
+		<p class="css-keys" style="display:inline">自动粘贴救援码</p>
+	</div>
 </div>
-
-
 
 <script src="browser_action.js"></script>

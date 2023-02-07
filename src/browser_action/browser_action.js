@@ -38,6 +38,12 @@ document.addEventListener('DOMContentLoaded', function () {
             : i == 2 ? () => resetCbCounter()
             : () => resetGrandeCounter()
     }
+
+    var pasteSwitch = document.getElementById("pasteSwitch");
+    chrome.storage.sync.get("pasteEnabled", function (result) {
+        pasteSwitch.checked = result.pasteEnabled == true;
+    });
+    pasteSwitch.onclick = () => setPasteSwitch(pasteSwitch);
 });
 
 function resetPbCounter() {
@@ -194,4 +200,15 @@ function refreshStats() {
             document.getElementById("hit-array").innerHTML = (result.blueChestObj.historyHitArray || []).length > 0 ? getHistoryHitStr(result.blueChestObj.historyHitArray) : '无';
         }
     });
+}
+
+function setPasteSwitch(pasteSwitch) {
+    console.log("点击开关");
+
+    if (pasteSwitch.checked == true) {
+        chrome.storage.sync.set({ "pasteEnabled": true }, function () { });
+
+    } else {
+        chrome.storage.sync.set({ "pasteEnabled": false }, function () { });
+    }
 }
