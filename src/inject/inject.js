@@ -48,6 +48,8 @@ const EMPTY_OBJ = {
 var check;
 
 $(window).bind('hashchange', function () {
+	clearInterval(check);
+
 	if (window.location.href.match(regex)) {
 		check = setInterval(function () {
 			if (isQuest(AKX_DROP_ITEM_ID, AKX_NICKNAME)) {
